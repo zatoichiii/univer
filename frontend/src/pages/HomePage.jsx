@@ -5,15 +5,20 @@ import ProductSlider from '../components/ProductSlider';
 import ProductList from '../components/ProductList';
 import AboutUs from '../components/AboutUs';
 import ContactForm from '../components/ContactForm';
+import StoreAdvantages from '../components/StoreAdvantages';
+import PartnersAndDelivery from '../components/PartnersAndDelivery';
+import Contacts from '../components/Contacts';
 
 const HomePage = () => {
   return (
     <>
       <Hero />
       <ProductSlider />
-      <h2 className="text-3xl font-bold text-center text-gray-800 my-8">All Products</h2>
+      <StoreAdvantages />
       <ProductList />
+      <PartnersAndDelivery /> 
       <AboutUs />
+      <Contacts/>
       <ContactForm />
     </>
   );

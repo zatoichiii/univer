@@ -1,64 +1,96 @@
 // src/components/Header.jsx
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux'; // Импортируем useDispatch
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/authSlice';
 import { motion } from 'framer-motion';
-import { logout } from '../redux/slices/authSlice'; // Импортируем действие logout
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch(); // Инициализируем useDispatch
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout()); // Вызываем действие logout
+    dispatch(logout());
   };
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-white shadow-md sticky top-0 z-50 border-b">
+      {/* Верхняя панель с контактами */}
+      <div className="bg-gray-100 text-sm text-gray-700 px-4 py-2 flex justify-between items-center">
+        <span>+7 (999) 123-45-67</span>
+        <span>store@example.com</span>
+      </div>
+
+      {/* Навигация */}
       <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Логотип */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="text-2xl font-bold text-indigo-600">Premium Store</h1>
+          <a href="/" className="text-2xl font-bold text-indigo-700 tracking-wide">
+            TechStore
+          </a>
         </motion.div>
 
-        {/* Навигация */}
-        <div className="flex space-x-4 items-center">
+        {/* Меню */}
+        <div className="flex space-x-6 items-center font-medium">
           <motion.a
             href="/"
-            className="text-gray-700 hover:text-indigo-600 transition-colors"
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
+            className="text-gray-700 hover:text-indigo-600"
           >
-            Home
+            Главная
+          </motion.a>
+          <motion.a
+            href="/all-products"
+            whileHover={{ scale: 1.05 }}
+            className="text-gray-700 hover:text-indigo-600"
+          >
+            Каталог
+          </motion.a>
+          <motion.a
+            href="/about"
+            whileHover={{ scale: 1.05 }}
+            className="text-gray-700 hover:text-indigo-600"
+          >
+            О нас
+          </motion.a>
+          <motion.a
+            href="/contacts"
+            whileHover={{ scale: 1.05 }}
+            className="text-gray-700 hover:text-indigo-600"
+          >
+            Контакты
           </motion.a>
           <motion.a
             href="/cart"
-            className="text-gray-700 hover:text-indigo-600 transition-colors relative"
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
+            className="text-gray-700 hover:text-indigo-600"
           >
-            Cart
+            Корзина
           </motion.a>
+
+          {/* Авторизация */}
           {isAuthenticated ? (
             <>
-              <span className="text-gray-800 font-semibold">{user?.username}</span>
+              <span className="text-gray-800">{user?.username}</span>
               <motion.button
-                onClick={handleLogout} // Обрабатываем выход
-                className="text-red-500 hover:text-red-700 transition-colors"
-                whileHover={{ scale: 1.1 }}
+                onClick={handleLogout}
+                whileHover={{ scale: 1.05 }}
+                className="text-red-500 hover:text-red-700"
               >
-                Logout
+                Выйти
               </motion.button>
             </>
           ) : (
             <motion.a
               href="/login"
-              className="text-gray-700 hover:text-indigo-600 transition-colors"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
+              className="text-gray-700 hover:text-indigo-600"
             >
-              Login
+              Войти
             </motion.a>
           )}
         </div>

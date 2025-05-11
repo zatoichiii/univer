@@ -1,10 +1,9 @@
-// src/components/ProductList.jsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts } from "../redux/slices/productSlice";
 import { motion } from "framer-motion";
-import AddToCartButton from "./AddToCartButton"; // Импортируем новый компонент
+import AddToCartButton from "./AddToCartButton";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -15,55 +14,62 @@ const ProductList = () => {
   }, [dispatch]);
 
   if (!products.length) {
-    return <p className="text-center text-gray-600">Loading products...</p>;
+    return <p className="text-center text-gray-500">Загрузка товаров...</p>;
   }
 
-  const limitedProducts = products.slice(0, 5);
+  const limitedProducts = products.slice(0, 6);
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {limitedProducts.map((product, index) => (
-          <div key={product._id} className="block">
+    <section className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">
+          Популярные товары
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {limitedProducts.map((product, index) => (
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              key={product._id}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02]"
+              className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all overflow-hidden"
             >
-              <img
-                src={`http://localhost:5000${product.image}`}
-                alt={product.name}
-                className="w-full h-48 object-cover"
-              />{" "}
-              <div className="p-4">
-                <h2 className="text-xl font-semibold text-gray-800">
+              <Link to={`/products/${product._id}`}>
+                <img
+                  src={`http://localhost:5000${product.image}`}
+                  alt={product.name}
+                  className="w-full h-56 object-cover"
+                />
+              </Link>
+              <div className="p-5">
+                <h3 className="text-lg font-semibold text-gray-900">
                   {product.name}
-                </h2>
-                <p className="text-gray-600 mt-2">${product.price}</p>
-                <AddToCartButton product={product} />{" "}
-                {/* Используем новый компонент */}
+                </h3>
+                <p className="text-indigo-600 font-bold mt-2 mb-4 text-xl">
+                  ${product.price}
+                </p>
+                <AddToCartButton product={product} />
                 <Link
                   to={`/products/${product._id}`}
-                  className="flex align-center justify-center mt-2 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                  className="block text-center mt-4 bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors"
                 >
-                  View Details
+                  Подробнее
                 </Link>
               </div>
             </motion.div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="text-center m-8">
-        <Link
-          to="/all-products"
-          className="p-4 mt-4 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition-colors"
-        >
-          View All Products
-        </Link>
+        <div className="text-center mt-12">
+          <Link
+            to="/all-products"
+            className="inline-block bg-indigo-600 text-white font-medium px-6 py-3 rounded-md hover:bg-indigo-700 transition"
+          >
+            Смотреть все товары
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

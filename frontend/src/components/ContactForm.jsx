@@ -1,26 +1,44 @@
 // src/components/ContactForm.jsx
 import React, { useState } from 'react';
+import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Thank you for your message!');
-    setFormData({ name: '', email: '', message: '' });
+
+    try {
+      const response = await axios.post('/api/send-email', formData);
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (error) {
+      setIsError(true);
+      console.error('Error sending email:', error);
+    }
+
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setIsError(false);
+    }, 3000);
   };
 
   return (
     <section className="py-12 bg-gray-100">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Contact Us</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Свяжитесь с нами</h2>
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-gray-700">Имя</label>
             <input
               type="text"
               name="name"
@@ -42,7 +60,7 @@ const ContactForm = () => {
             />
           </div>
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700">Message</label>
+            <label className="block text-sm font-medium text-gray-700">Сообщение</label>
             <textarea
               name="message"
               value={formData.message}
@@ -56,9 +74,33 @@ const ContactForm = () => {
             type="submit"
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Send Message
+            Отправить сообщение
           </button>
         </form>
+
+        {/* Уведомление об успешной отправке */}
+        {isSubmitted && (
+          <motion.div
+            className="mt-6 bg-green-500 text-white p-4 rounded-lg shadow-lg text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Спасибо, мы скоро с вами свяжемся!
+          </motion.div>
+        )}
+
+        {/* Уведомление об ошибке */}
+        {isError && (
+          <motion.div
+            className="mt-6 bg-red-500 text-white p-4 rounded-lg shadow-lg text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            Произошла ошибка, попробуйте позже.
+          </motion.div>
+        )}
       </div>
     </section>
   );

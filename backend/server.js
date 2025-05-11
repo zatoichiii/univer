@@ -4,6 +4,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const sendMail = require('./sendMail');
 require('dotenv').config();
 const multer = require('multer'); // Импортируем multer
 const path = require('path');
@@ -34,6 +35,20 @@ const uploadDir = './public/uploads';
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
+
+// Эндпоинт для отправки email
+app.post('/api/send-email', async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    await sendMail(name, email, message);
+    res.status(200).send('Сообщение отправлено');
+  } catch (error) {
+    console.error('Ошибка при отправке письма:', error);
+    res.status(500).send('Не удалось отправить сообщение');
+  }
+});
+
 
 // Эндпоинт для загрузки изображений
 app.post('/api/upload', upload.single('image'), (req, res) => {

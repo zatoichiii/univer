@@ -12,6 +12,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductDetails from './pages/ProductDetails';
+import AboutPage from './pages/AboutPage'
 import AllProductsPage from './pages/AllProductsPage';
 import { ToastContainer } from 'react-toastify'; // Импортируем ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Стили для toast
@@ -39,6 +40,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/all-products" element={<AllProductsPage />} />
+            <Route path="/about" element={<AboutPage  />} />
             <Route
               path="/cart"
               element={
