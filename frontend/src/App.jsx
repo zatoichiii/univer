@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { loadUser } from './redux/slices/authSlice';
 import Login from './components/Login';
 import Register from './components/Register';

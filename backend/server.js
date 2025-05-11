@@ -1,13 +1,12 @@
 // server.js
-require('dotenv').config();
-
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 // Импорт зависимостей
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const sendMail = require('./sendMail');
 const multer = require('multer'); // Импортируем multer
-const path = require('path');
 
 // Инициализация Express-приложения
 const app = express();

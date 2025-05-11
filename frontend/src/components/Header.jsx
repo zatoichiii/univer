@@ -3,6 +3,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
 
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -29,59 +31,59 @@ const Header = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <a href="/" className="text-2xl font-bold text-indigo-700 tracking-wide">
+          <a to="/" className="text-2xl font-bold text-indigo-700 tracking-wide">
             TechStore
           </a>
         </motion.div>
 
         {/* Меню */}
         <div className="flex space-x-6 items-center font-medium">
-          <motion.a
-            href="/"
+          <Link
+            to="/"
             whileHover={{ scale: 1.05 }}
             className="text-gray-700 hover:text-indigo-600"
           >
             Главная
-          </motion.a>
-          <motion.a
-            href="/all-products"
+          </Link>
+          <Link
+            to="/all-products"
             whileHover={{ scale: 1.05 }}
             className="text-gray-700 hover:text-indigo-600"
           >
             Каталог
-          </motion.a>
-          <motion.a
-            href="/about"
+          </Link>
+          <Link
+            to="/about"
             whileHover={{ scale: 1.05 }}
             className="text-gray-700 hover:text-indigo-600"
           >
             О нас
-          </motion.a>
-          <motion.a
-            href="/contacts"
+          </Link>
+          <Link
+            to="/contacts"
             whileHover={{ scale: 1.05 }}
             className="text-gray-700 hover:text-indigo-600"
           >
             Контакты
-          </motion.a>
-          <motion.a
-            href="/cart"
+          </Link>
+          <Link
+            to="/cart"
             whileHover={{ scale: 1.05 }}
             className="text-gray-700 hover:text-indigo-600"
           >
             Корзина
-          </motion.a>
+          </Link>
 
           {/* Авторизация */}
           {isAuthenticated ? (
             <>
-              <motion.a
-                href="/dashboard"
+              <Link
+                to="/dashboard"
                 whileHover={{ scale: 1.05 }}
                 className="text-gray-700 hover:text-indigo-600"
               >
                 {user?.username}
-              </motion.a>
+              </Link>
               <motion.button
                 onClick={handleLogout}
                 whileHover={{ scale: 1.05 }}
@@ -91,13 +93,13 @@ const Header = () => {
               </motion.button>
             </>
           ) : (
-            <motion.a
-              href="/login"
+            <Link
+              to="/login"
               whileHover={{ scale: 1.05 }}
               className="text-gray-700 hover:text-indigo-600"
             >
               Войти
-            </motion.a>
+            </Link>
           )}
         </div>
       </nav>
