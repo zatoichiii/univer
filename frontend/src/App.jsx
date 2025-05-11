@@ -17,6 +17,9 @@ import AllProductsPage from './pages/AllProductsPage';
 import { ToastContainer } from 'react-toastify'; // Импортируем ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Стили для toast
 import './index.css';
+import ContactPage from './pages/ContactPage';
+import Checkout from './components/Checkout';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +44,9 @@ function App() {
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/all-products" element={<AllProductsPage />} />
             <Route path="/about" element={<AboutPage  />} />
+            <Route path="/contacts" element={<ContactPage  />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route
               path="/cart"
               element={
@@ -52,9 +58,7 @@ function App() {
             <Route
               path="/admin"
               element={
-                <ProtectedRoute>
                   <AdminPanel />
-                </ProtectedRoute>
               }
             />
           </Routes>

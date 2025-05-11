@@ -1,11 +1,11 @@
 // server.js
+require('dotenv').config();
 
 // Импорт зависимостей
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const sendMail = require('./sendMail');
-require('dotenv').config();
 const multer = require('multer'); // Импортируем multer
 const path = require('path');
 

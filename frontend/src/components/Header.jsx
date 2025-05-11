@@ -75,7 +75,13 @@ const Header = () => {
           {/* Авторизация */}
           {isAuthenticated ? (
             <>
-              <span className="text-gray-800">{user?.username}</span>
+              <motion.a
+                href="/dashboard"
+                whileHover={{ scale: 1.05 }}
+                className="text-gray-700 hover:text-indigo-600"
+              >
+                {user?.username}
+              </motion.a>
               <motion.button
                 onClick={handleLogout}
                 whileHover={{ scale: 1.05 }}

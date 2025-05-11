@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 
-// Создаем транспорт для отправки почты через Яндекс.Почту
 const transporter = nodemailer.createTransport({
   service: 'yandex',
   auth: {
@@ -9,11 +8,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Функция отправки email
-const sendMail = (name, email, message) => {
+const sendMail = async (name, email, message) => {
   const mailOptions = {
-    from: process.env.YANDEX_EMAIL, // Отправитель
-    to: 'azovtsevnikita@mail.ru', // Замените на ваш email для получения сообщений
+    from: process.env.YANDEX_EMAIL,
+    to: 'azovtsevnikita@mail.ru',
     subject: 'Новое сообщение с сайта',
     text: `
       Имя: ${name}
@@ -22,7 +20,13 @@ const sendMail = (name, email, message) => {
     `,
   };
 
-  return transporter.sendMail(mailOptions);
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email успешно отправлен:', info.response);
+  } catch (error) {
+    console.error('Ошибка отправки email:', error);
+    throw error;
+  }
 };
 
 module.exports = sendMail;

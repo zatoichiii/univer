@@ -9,15 +9,13 @@ import StoreAdvantages from '../components/StoreAdvantages';
 import PartnersAndDelivery from '../components/PartnersAndDelivery';
 import Contacts from '../components/Contacts';
 
-const AboutPage = () => {
+const ContactPage = () => {
   return (
     <>
-      <AboutUs />
-      <PartnersAndDelivery /> 
       <Contacts/>
       <ContactForm />
     </>
   );
 };
 
-export default AboutPage;
+export default ContactPage;

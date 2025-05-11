@@ -46,7 +46,7 @@ const ProductList = () => {
                   {product.name}
                 </h3>
                 <p className="text-indigo-600 font-bold mt-2 mb-4 text-xl">
-                  ${product.price}
+                  {product.price} руб.
                 </p>
                 <AddToCartButton product={product} />
                 <Link
